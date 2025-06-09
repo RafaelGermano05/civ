@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Clientes - Venda de Máquinas</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="shortcut icon" href="assets/LOGO_FORTSUN_PDF.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/D_NQ_NP_638984-MLB81754420142_012025-O-mercado-pago-maquina-de-carto-point-smart-2-4g-wifi.webp" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-users"></i>
+            </div>
+            <h1>Controle de Clientes</h1>
+            <p>Sistema de Venda de Máquinas</p>
+        </header>
+        
+        <main class="main-content">
+            <form id="clienteForm" class="cliente-form">
+                <h2>Registrar Venda</h2>
+                
+                <div class="form-group">
+                    <label for="supervisor">Supervisor Responsável*</label>
+                    <input type="text" id="supervisor" name="supervisor" placeholder="Nome do supervisor" required>
+                    <div class="error-message" id="supervisor-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="consultor">Consultor*</label>
+                    <input type="text" id="consultor" name="consultor" placeholder="Nome do consultor" required>
+                    <div class="error-message" id="consultor-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cliente">Nome do Cliente*</label>
+                    <input type="text" id="cliente" name="cliente" placeholder="Nome completo do cliente" required>
+                    <div class="error-message" id="cliente-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="custId">Cust ID do Cliente*</label>
+                    <input type="text" id="custId" name="custId" placeholder="ID único do cliente" required>
+                    <div class="error-message" id="custId-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone do Cliente*</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                    <div class="error-message" id="telefone-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail do Cliente*</label>
+                    <input type="email" id="email" name="email" placeholder="E-mail válido do cliente" required>
+                    <div class="error-message" id="email-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dataVenda">Data da Venda*</label>
+                    <input type="date" id="dataVenda" name="dataVenda" required>
+                    <div class="error-message" id="dataVenda-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="serial">Serial da Máquina Vendida*</label>
+                    <input type="text" id="serial" name="serial" placeholder="Número de série da máquina" required>
+                    <div class="error-message" id="serial-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="observacoes">Observações</label>
+                    <textarea id="observacoes" name="observacoes" placeholder="Informações adicionais sobre a venda"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-check-circle"></i> Registrar Venda
+                </button>
+            </form>
+            
+            <div id="successMessage" class="success-message hidden">
+                <i class="fas fa-check-circle"></i>
+                <h3>Venda registrada com sucesso!</h3>
+                <p id="success-details"></p>
+                <button id="newVendaBtn" class="new-venda-btn">Nova Venda</button>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>Sistema desenvolvido para controle interno</p>
+            <!-- <p>Atualizado em: <span |d="current-date"></span></p> -->
+        </footer>
+    </div>
+    
+    <script src="assets/script.js"></script>
+</body>
+</html>
