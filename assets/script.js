@@ -1,12 +1,11 @@
 // Configurações do Google Apps Script
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxa49wk9EHvlqCo7rJysDteYVqVphUI_YWk56wBWd0Owb_0mCdhrxxqah8L0By4B-sa/exec';
 
-// Elementos do formulário
 const form = document.getElementById('clienteForm');
 const successMessage = document.getElementById('successMessage');
 const newVendaBtn = document.getElementById('newVendaBtn');
 
-// Campos obrigatórios
+// campos obrigatórios da base google sheets
 const requiredFields = [
     { id: 'supervisor', errorId: 'supervisor-error' },
     { id: 'consultor', errorId: 'consultor-error' },
@@ -22,7 +21,6 @@ const telefoneInput = document.getElementById('telefone');
 const telefoneError = document.getElementById('telefone-error');
 
 telefoneInput.addEventListener('input', function(e) {
-    // Formatação automática do telefone
     let value = e.target.value.replace(/\D/g, '');
     
     if (value.length > 11) value = value.substring(0, 11);
@@ -38,7 +36,7 @@ telefoneInput.addEventListener('input', function(e) {
     e.target.value = value;
     
     // Validação
-    if (value.length < 14) { // (00) 00000-0000 tem 14 caracteres
+    if (value.length < 14) { 
         telefoneInput.style.borderColor = 'var(--error)';
         telefoneError.textContent = 'Telefone incompleto';
         telefoneError.style.display = 'block';
@@ -48,7 +46,6 @@ telefoneInput.addEventListener('input', function(e) {
     }
 });
 
-// Atualiza a data atual no footer
 function updateCurrentDate() {
     const now = new Date();
     const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -56,7 +53,6 @@ function updateCurrentDate() {
     document.getElementById('current-date').textContent = formattedDate;
 }
 
-// Valida os campos do formulário
 function validateForm() {
     let isValid = true;
     
@@ -90,7 +86,6 @@ function validateForm() {
     return isValid;
 }
 
-// Limpa o formulário completamente
 function resetForm() {
     form.reset();
     requiredFields.forEach(field => {
@@ -98,12 +93,11 @@ function resetForm() {
         document.getElementById(field.errorId).style.display = 'none';
     });
     
-    // Configura a data atual como padrão
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dataVenda').value = today;
 }
 
-// Envia os dados para o Google Sheets
+// envia os dados para o Google Sheets
 async function submitForm(data) {
     try {
         const response = await fetch(WEB_APP_URL, {
@@ -113,7 +107,6 @@ async function submitForm(data) {
             body: JSON.stringify(data)
         });
         
-        // Assumimos que foi bem-sucedido se não houve erro de rede
         return { status: "success" };
     } catch (error) {
         console.error('Erro:', error);
@@ -121,7 +114,6 @@ async function submitForm(data) {
     }
 }
 
-// Manipulador de envio do formulário
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -141,7 +133,7 @@ form.addEventListener('submit', async (e) => {
         observacoes: document.getElementById('observacoes').value.trim()
     };
     
-    // Mostrar loading no botão
+    // carregando do botão de submit 
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
@@ -150,7 +142,7 @@ form.addEventListener('submit', async (e) => {
     try {
         await submitForm(formData);
         
-        // Mostrar detalhes do envio
+        // mostrar os resultados do envio 
         document.getElementById('success-details').innerHTML = `
             <strong>Venda registrada para:</strong><br>
             <strong>Cliente:</strong> ${formData.cliente}<br>
@@ -164,12 +156,10 @@ form.addEventListener('submit', async (e) => {
         form.classList.add('hidden');
         successMessage.classList.remove('hidden');
         
-        // Resetar o formulário após envio bem-sucedido
         resetForm();
     } /* catch (error) {
         alert('Ocorreu um erro ao enviar os dados. Por favor, tente novamente.');
     }*/ finally {
-        // Restaurar botão independente do resultado
         submitBtn.innerHTML = originalBtnText;
         submitBtn.disabled = false;
     }
@@ -185,11 +175,9 @@ newVendaBtn.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
     updateCurrentDate();
     
-    // Configura a data atual como padrão
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dataVenda').value = today;
     
-    // Adiciona validação em tempo real para os campos
     requiredFields.forEach(field => {
         const input = document.getElementById(field.id);
         const errorElement = document.getElementById(field.errorId);
