@@ -1,5 +1,5 @@
 // Configurações do Google Apps Script
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxa49wk9EHvlqCo7rJysDteYVqVphUI_YWk56wBWd0Owb_0mCdhrxxqah8L0By4B-sa/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwAGv6UkdKQxnDO_k_FSln5VDLWSbQCOBX8u2MtpF1etmk2GGTHqWPjq2U46-e3shXb/exec';
 
 const form = document.getElementById('clienteForm');
 const successMessage = document.getElementById('successMessage');
@@ -10,11 +10,13 @@ const requiredFields = [
     { id: 'supervisor', errorId: 'supervisor-error' },
     { id: 'consultor', errorId: 'consultor-error' },
     { id: 'cliente', errorId: 'cliente-error' },
+    { id: 'estabelecimento', errorId: 'estabelecimento-error' },
     { id: 'custId', errorId: 'custId-error' },
     { id: 'telefone', errorId: 'telefone-error' },
     { id: 'email', errorId: 'email-error' },
     { id: 'dataVenda', errorId: 'dataVenda-error' },
-    { id: 'serial', errorId: 'serial-error' }
+    { id: 'serial', errorId: 'serial-error' },
+    { id: 'concorrencia', errorId: 'concorrencia-error' }
 ];
 
 const telefoneInput = document.getElementById('telefone');
@@ -125,12 +127,15 @@ form.addEventListener('submit', async (e) => {
         supervisor: document.getElementById('supervisor').value.trim(),
         consultor: document.getElementById('consultor').value.trim(),
         cliente: document.getElementById('cliente').value.trim(),
+        estabelecimento: document.getElementById('estabelecimento').value.trim(),
         custId: document.getElementById('custId').value.trim(),
         telefone: document.getElementById('telefone').value.trim(),
         email: document.getElementById('email').value.trim(),
         dataVenda: document.getElementById('dataVenda').value,
         serial: document.getElementById('serial').value.trim(),
-        observacoes: document.getElementById('observacoes').value.trim()
+        observacoes: document.getElementById('observacoes').value.trim(),
+        concorrencia: document.getElementById('concorrencia').value.trim()
+
     };
     
     // carregando do botão de submit 
@@ -146,6 +151,8 @@ form.addEventListener('submit', async (e) => {
         document.getElementById('success-details').innerHTML = `
             <strong>Venda registrada para:</strong><br>
             <strong>Cliente:</strong> ${formData.cliente}<br>
+            <strong>Estabelecimento:</strong> ${formData.estabelecimento}<br>
+            <strong>Concorrência:</strong> ${formData.concorrencia}<br>
             <strong>Cust ID:</strong> ${formData.custId}<br>
             <strong>Consultor:</strong> ${formData.consultor}<br>
             <strong>Serial:</strong> ${formData.serial}<br>
