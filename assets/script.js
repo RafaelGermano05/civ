@@ -192,8 +192,9 @@ newVendaBtn.addEventListener('click', () => {
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
     updateCurrentDate();
-    
-    const today = new Date().toISOString().split('T')[0];
+
+    // TROQUEI AQUI PARA tentar subir a data certa para a base (está aparecendo correto na página mas não na base)
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     document.getElementById('dataVenda').value = today;
     
     requiredFields.forEach(field => {
