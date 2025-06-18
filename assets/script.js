@@ -106,7 +106,8 @@ function resetForm() {
     const now = new Date();
     const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
-    document.getElementById('dataVenda').value = today;
+    // mudando de today para localDate, variável que criei para a função pra resolver o bug de fuso horário
+    document.getElementById('dataVenda').value = localDate;
 }
 
 // envia os dados para o Google Sheets
