@@ -1,5 +1,5 @@
 // Configurações do Google Apps Script
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwAGv6UkdKQxnDO_k_FSln5VDLWSbQCOBX8u2MtpF1etmk2GGTHqWPjq2U46-e3shXb/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw5UdoKDckcLn2Sr2EJtlkG6DQm0GWg52IDRsEqUfh9kieIP3fTQZC8HrvfzTCqvbFL/exec';
 
 const form = document.getElementById('clienteForm');
 const successMessage = document.getElementById('successMessage');
