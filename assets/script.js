@@ -95,7 +95,11 @@ function resetForm() {
         document.getElementById(field.errorId).style.display = 'none';
     });
     
-    const today = new Date().toISOString().split('T')[0];
+    // const today = new Date().toISOString().split('T')[0];
+    // TROCANDO AQUI O NEW DATE para identificar o fuso horário brasileiro subtraindo um valor para o dia
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
     document.getElementById('dataVenda').value = today;
 }
 
