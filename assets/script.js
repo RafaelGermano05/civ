@@ -88,6 +88,12 @@ function validateForm() {
     return isValid;
 }
 
+function formatDateLocal(dateString) {
+    const [year, month, day] = dateString.split('-');
+    const localDate = new Date(+year, +month - 1, +day);
+    return localDate.toLocaleDateString('pt-BR');
+}
+
 function resetForm() {
     form.reset();
     requiredFields.forEach(field => {
@@ -160,9 +166,10 @@ form.addEventListener('submit', async (e) => {
             <strong>Cust ID:</strong> ${formData.custId}<br>
             <strong>Consultor:</strong> ${formData.consultor}<br>
             <strong>Serial:</strong> ${formData.serial}<br>
-            <strong>Data:</strong> ${new Date(formData.dataVenda).toLocaleDateString('pt-BR')}
+            <strong>Data:</strong> ${formatDateLocal(formData.dataVenda)}
+
         `;
-        
+        // <strong>Data:</strong> ${new Date(formData.dataVenda).toLocaleDateString('pt-BR')}
         // Esconder formulário e mostrar mensagem de sucesso
         form.classList.add('hidden');
         successMessage.classList.remove('hidden');
