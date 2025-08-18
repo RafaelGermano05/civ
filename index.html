@@ -23,11 +23,35 @@
             <form id="clienteForm" class="cliente-form">
                 <h2>Registrar Venda</h2>
                 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="supervisor">Supervisor Responsável*</label>
                     <input type="text" id="supervisor" name="supervisor" placeholder="Nome do supervisor" required>
                     <div class="error-message" id="supervisor-error"></div>
-                </div>
+                </div> -->
+
+                <div class="form-group">
+                <label for="supervisor">Supervisor Responsável*</label>
+                <select id="supervisor" name="supervisor" required>
+                        <option value="" disabled selected>Selecione o supervisor</option>
+                        <option value="Aldenir Medeiros">Aldenir Medeiros</option>
+                        <option value="Rozélia Soares">Rozélia Soares</option>
+                        <option value="Thiago de Carvalho">Thiago de Carvalho</option>
+                        <option value="Kesse Jhones">Kesse Jhones</option>
+                        <option value="Anderson Brito">Anderson Brito</option>
+                        <option value="Guilherme Queiroz">Guilherme Queiroz</option>
+                        <option value="Maria Anita">Maria Anita</option>
+                        <option value="Pedro Lavor">Pedro Lavor</option>
+                        <option value="Dougllas Araújo">Dougllas Araújo</option>
+                        <option value="Tiago William">Tiago William</option>
+                        <option value="Allexandre Serrão">Allexandre Serrão</option>
+                        <option value="Michella Matos">Michella Matos</option>
+                        <option value="Vitória de Freitas">Vitória de Freitas</option>
+                        <option value="Sarah Cassiana">Sarah Cassiana</option>
+                        <option value="Outro">Outro (especifique)</option>
+                    </select>
+                    <input type="text" id="outroSupervisor" name="outroSupervisor" placeholder="Digite o nome do supervisor" style="display: none; margin-top: 10px;">
+    <div class="error-message" id="supervisor-error"></div>
+</div>
                 
                 <div class="form-group">
                     <label for="consultor">Consultor*</label>
