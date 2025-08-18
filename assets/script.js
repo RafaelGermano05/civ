@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwAGv6UkdKQxnDO_k_FSln5VDLWSbQCOBX8u2MtpF1etmk2GGTHqWPjq2U46-e3shXb/exec';
+=======
+// Configurações do Google Apps Script
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw5UdoKDckcLn2Sr2EJtlkG6DQm0GWg52IDRsEqUfh9kieIP3fTQZC8HrvfzTCqvbFL/exec';
+>>>>>>> b1e8e4ccf3c1ca6151a052091414993d5a4e07d3
 
 const form = document.getElementById('clienteForm');
 const successMessage = document.getElementById('successMessage');
@@ -213,6 +218,12 @@ function validateForm() {
     return isValid;
 }
 
+function formatDateLocal(dateString) {
+    const [year, month, day] = dateString.split('-');
+    const localDate = new Date(+year, +month - 1, +day);
+    return localDate.toLocaleDateString('pt-BR');
+}
+
 function resetForm() {
     form.reset();
     
@@ -225,6 +236,7 @@ function resetForm() {
         errorElement.style.display = 'none';
     });
     
+<<<<<<< HEAD
     // Reset especial para supervisor
     supervisorSelect.selectedIndex = 0;
     outroSupervisorInput.style.display = 'none';
@@ -233,6 +245,15 @@ function resetForm() {
     
     // Define a data atual
     setupDateField();
+=======
+    // const today = new Date().toISOString().split('T')[0];
+    // TROCANDO AQUI O NEW DATE para identificar o fuso horário brasileiro subtraindo um valor para o dia
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+    // mudando de today para localDate, variável que criei para a função pra resolver o bug de fuso horário
+    document.getElementById('dataVenda').value = formatDateLocal(dateString);
+>>>>>>> b1e8e4ccf3c1ca6151a052091414993d5a4e07d3
 }
 
 async function submitForm(data) {
@@ -296,9 +317,10 @@ form.addEventListener('submit', async (e) => {
             <strong>Consultor:</strong> ${formData.consultor}<br>
             <strong>Supervisor:</strong> ${formData.supervisor}<br>
             <strong>Serial:</strong> ${formData.serial}<br>
-            <strong>Data:</strong> ${new Date(formData.dataVenda).toLocaleDateString('pt-BR')}
+            <strong>Data:</strong> ${formatDateLocal(formData.dataVenda)}
+
         `;
-        
+        // <strong>Data:</strong> ${new Date(formData.dataVenda).toLocaleDateString('pt-BR')}
         // Esconder formulário e mostrar mensagem de sucesso
         form.classList.add('hidden');
         successMessage.classList.remove('hidden');
@@ -308,4 +330,60 @@ form.addEventListener('submit', async (e) => {
         submitBtn.innerHTML = originalBtnText;
         submitBtn.disabled = false;
     }
+<<<<<<< HEAD
 });
+=======
+});
+
+// Botão para nova venda
+newVendaBtn.addEventListener('click', () => {
+    successMessage.classList.add('hidden');
+    form.classList.remove('hidden');
+});
+
+// Inicialização
+document.addEventListener('DOMContentLoaded', () => {
+    updateCurrentDate();
+
+    // TROQUEI AQUI PARA tentar subir a data certa para a base (está aparecendo correto na página mas não na base)
+    // dando cntrl z
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('dataVenda').value = today;
+    
+    requiredFields.forEach(field => {
+        const input = document.getElementById(field.id);
+        const errorElement = document.getElementById(field.errorId);
+        
+        input.addEventListener('input', function() {
+            if (this.value.trim() === '') {
+                this.style.borderColor = 'var(--error)';
+                errorElement.textContent = 'Este campo é obrigatório';
+                errorElement.style.display = 'block';
+            } else {
+                this.style.borderColor = 'var(--border)';
+                errorElement.style.display = 'none';
+            }
+        });
+    });
+    
+    // Validação especial para e-mail
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    emailInput.addEventListener('input', function() {
+        if (this.value.trim() === '') {
+            this.style.borderColor = 'var(--error)';
+            emailError.textContent = 'Este campo é obrigatório';
+            emailError.style.display = 'block';
+        } else if (!emailRegex.test(this.value)) {
+            this.style.borderColor = 'var(--error)';
+            emailError.textContent = 'Por favor, insira um e-mail válido';
+            emailError.style.display = 'block';
+        } else {
+            this.style.borderColor = 'var(--border)';
+            emailError.style.display = 'none';
+        }
+    });
+});
+>>>>>>> b1e8e4ccf3c1ca6151a052091414993d5a4e07d3
