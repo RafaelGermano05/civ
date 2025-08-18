@@ -1,13 +1,14 @@
-<<<<<<< HEAD
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwAGv6UkdKQxnDO_k_FSln5VDLWSbQCOBX8u2MtpF1etmk2GGTHqWPjq2U46-e3shXb/exec';
-=======
-// Configurações do Google Apps Script
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw5UdoKDckcLn2Sr2EJtlkG6DQm0GWg52IDRsEqUfh9kieIP3fTQZC8HrvfzTCqvbFL/exec';
->>>>>>> b1e8e4ccf3c1ca6151a052091414993d5a4e07d3
 
+// Elementos principais
 const form = document.getElementById('clienteForm');
 const successMessage = document.getElementById('successMessage');
 const newVendaBtn = document.getElementById('newVendaBtn');
+
+// Elementos do supervisor
+const supervisorSelect = document.getElementById('supervisor');
+const outroSupervisorInput = document.getElementById('outroSupervisor');
+const supervisorError = document.getElementById('supervisor-error');
 
 // Campos obrigatórios
 const requiredFields = [
@@ -23,18 +24,8 @@ const requiredFields = [
     { id: 'concorrencia', errorId: 'concorrencia-error' }
 ];
 
-// Elementos do supervisor
-const supervisorSelect = document.getElementById('supervisor');
-const outroSupervisorInput = document.getElementById('outroSupervisor');
-const supervisorError = document.getElementById('supervisor-error');
-
-// Máscara de telefone
-const telefoneInput = document.getElementById('telefone');
-const telefoneError = document.getElementById('telefone-error');
-
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
-    updateCurrentDate();
     setupTelefoneMask();
     setupSupervisorSelect();
     setupFormValidation();
@@ -42,17 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
     setupNewVendaButton();
 });
 
-function updateCurrentDate() {
-    const now = new Date();
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-    const formattedDate = now.toLocaleDateString('pt-BR', options);
-    const currentDateElement = document.getElementById('current-date');
-    if (currentDateElement) {
-        currentDateElement.textContent = formattedDate;
-    }
-}
-
+// Configura máscara de telefone
 function setupTelefoneMask() {
+    const telefoneInput = document.getElementById('telefone');
+    const telefoneError = document.getElementById('telefone-error');
+
     telefoneInput.addEventListener('input', function(e) {
         let value = e.target.value.replace(/\D/g, '');
         
@@ -80,30 +65,50 @@ function setupTelefoneMask() {
     });
 }
 
+// Configura o select de supervisor
 function setupSupervisorSelect() {
     supervisorSelect.addEventListener('change', function() {
         if (this.value === 'Outro') {
+            // Mostra o campo e faz ele ser obrigatório
             outroSupervisorInput.style.display = 'block';
             outroSupervisorInput.required = true;
+            
+            // Foca automaticamente no campo
+            setTimeout(() => {
+                outroSupervisorInput.focus();
+            }, 100);
+            
+            // Limpa qualquer erro anterior
             supervisorError.textContent = '';
             supervisorError.style.display = 'none';
         } else {
+            // Esconde o campo e remove a obrigatoriedade
             outroSupervisorInput.style.display = 'none';
             outroSupervisorInput.required = false;
             outroSupervisorInput.value = '';
+            
+            // Garante que o erro some quando seleciona outra opção
+            supervisorSelect.style.borderColor = 'var(--border)';
+            supervisorError.style.display = 'none';
         }
     });
 
+    // Validação em tempo real do campo "Outro"
     outroSupervisorInput.addEventListener('input', function() {
-        if (supervisorSelect.value === 'Outro' && !this.value.trim()) {
-            supervisorError.textContent = 'Por favor, digite o nome do supervisor';
-            supervisorError.style.display = 'block';
-        } else {
-            supervisorError.style.display = 'none';
+        if (supervisorSelect.value === 'Outro') {
+            if (!this.value.trim()) {
+                this.style.borderColor = 'var(--error)';
+                supervisorError.textContent = 'Por favor, digite o nome do supervisor';
+                supervisorError.style.display = 'block';
+            } else {
+                this.style.borderColor = 'var(--border)';
+                supervisorError.style.display = 'none';
+            }
         }
     });
 }
 
+// Configura validação do formulário
 function setupFormValidation() {
     requiredFields.forEach(field => {
         if (field.id === 'supervisor') return;
@@ -125,6 +130,7 @@ function setupFormValidation() {
     });
 }
 
+// Valida um campo genérico
 function validateField(input, errorElement) {
     if (!input.value.trim()) {
         input.style.borderColor = 'var(--error)';
@@ -136,6 +142,7 @@ function validateField(input, errorElement) {
     }
 }
 
+// Validação específica para e-mail
 function validateEmailField(input, errorElement) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
@@ -153,11 +160,13 @@ function validateEmailField(input, errorElement) {
     }
 }
 
+// Configura campo de data
 function setupDateField() {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dataVenda').value = today;
 }
 
+// Configura botão de nova venda
 function setupNewVendaButton() {
     newVendaBtn.addEventListener('click', function() {
         successMessage.classList.add('hidden');
@@ -165,6 +174,7 @@ function setupNewVendaButton() {
     });
 }
 
+// Validação completa do formulário
 function validateForm() {
     let isValid = true;
     
@@ -218,12 +228,7 @@ function validateForm() {
     return isValid;
 }
 
-function formatDateLocal(dateString) {
-    const [year, month, day] = dateString.split('-');
-    const localDate = new Date(+year, +month - 1, +day);
-    return localDate.toLocaleDateString('pt-BR');
-}
-
+// Reseta o formulário
 function resetForm() {
     form.reset();
     
@@ -236,26 +241,17 @@ function resetForm() {
         errorElement.style.display = 'none';
     });
     
-<<<<<<< HEAD
     // Reset especial para supervisor
     supervisorSelect.selectedIndex = 0;
-    outroSupervisorInput.style.display = 'none';
+    outroSupervisorInput.classList.add('hidden');
     outroSupervisorInput.value = '';
     outroSupervisorInput.required = false;
     
     // Define a data atual
     setupDateField();
-=======
-    // const today = new Date().toISOString().split('T')[0];
-    // TROCANDO AQUI O NEW DATE para identificar o fuso horário brasileiro subtraindo um valor para o dia
-    const now = new Date();
-    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-
-    // mudando de today para localDate, variável que criei para a função pra resolver o bug de fuso horário
-    document.getElementById('dataVenda').value = formatDateLocal(dateString);
->>>>>>> b1e8e4ccf3c1ca6151a052091414993d5a4e07d3
 }
 
+// Envia os dados para o Google Sheets
 async function submitForm(data) {
     try {
         // Se selecionou "Outro", pega o valor do input
@@ -277,6 +273,7 @@ async function submitForm(data) {
     }
 }
 
+// Evento de submit do formulário
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -317,10 +314,9 @@ form.addEventListener('submit', async (e) => {
             <strong>Consultor:</strong> ${formData.consultor}<br>
             <strong>Supervisor:</strong> ${formData.supervisor}<br>
             <strong>Serial:</strong> ${formData.serial}<br>
-            <strong>Data:</strong> ${formatDateLocal(formData.dataVenda)}
-
+            <strong>Data:</strong> ${new Date(formData.dataVenda).toLocaleDateString('pt-BR')}
         `;
-        // <strong>Data:</strong> ${new Date(formData.dataVenda).toLocaleDateString('pt-BR')}
+        
         // Esconder formulário e mostrar mensagem de sucesso
         form.classList.add('hidden');
         successMessage.classList.remove('hidden');
@@ -330,60 +326,4 @@ form.addEventListener('submit', async (e) => {
         submitBtn.innerHTML = originalBtnText;
         submitBtn.disabled = false;
     }
-<<<<<<< HEAD
 });
-=======
-});
-
-// Botão para nova venda
-newVendaBtn.addEventListener('click', () => {
-    successMessage.classList.add('hidden');
-    form.classList.remove('hidden');
-});
-
-// Inicialização
-document.addEventListener('DOMContentLoaded', () => {
-    updateCurrentDate();
-
-    // TROQUEI AQUI PARA tentar subir a data certa para a base (está aparecendo correto na página mas não na base)
-    // dando cntrl z
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('dataVenda').value = today;
-    
-    requiredFields.forEach(field => {
-        const input = document.getElementById(field.id);
-        const errorElement = document.getElementById(field.errorId);
-        
-        input.addEventListener('input', function() {
-            if (this.value.trim() === '') {
-                this.style.borderColor = 'var(--error)';
-                errorElement.textContent = 'Este campo é obrigatório';
-                errorElement.style.display = 'block';
-            } else {
-                this.style.borderColor = 'var(--border)';
-                errorElement.style.display = 'none';
-            }
-        });
-    });
-    
-    // Validação especial para e-mail
-    const emailInput = document.getElementById('email');
-    const emailError = document.getElementById('email-error');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-    emailInput.addEventListener('input', function() {
-        if (this.value.trim() === '') {
-            this.style.borderColor = 'var(--error)';
-            emailError.textContent = 'Este campo é obrigatório';
-            emailError.style.display = 'block';
-        } else if (!emailRegex.test(this.value)) {
-            this.style.borderColor = 'var(--error)';
-            emailError.textContent = 'Por favor, insira um e-mail válido';
-            emailError.style.display = 'block';
-        } else {
-            this.style.borderColor = 'var(--border)';
-            emailError.style.display = 'none';
-        }
-    });
-});
->>>>>>> b1e8e4ccf3c1ca6151a052091414993d5a4e07d3
