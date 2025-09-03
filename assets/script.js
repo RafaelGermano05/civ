@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setupPosVendaForm();
     setupNewAtendimentoButton();
     
-    // Configurar data atual para o campo de data do atendimento
     document.getElementById('dataAtendimento').value = new Date().toISOString().split('T')[0];
 });
 
@@ -274,7 +273,6 @@ async function submitForm(data, tipo = 'venda') {
         // Adiciona o tipo aos dados
         data.tipo = tipo;
         
-        // Se selecionou "Outro", pega o valor do input
         if (data.supervisor === 'Outro') {
             data.supervisor = outroSupervisorInput.value.trim();
         }
@@ -293,7 +291,6 @@ async function submitForm(data, tipo = 'venda') {
     }
 }
 
-// Evento de submit do formulário de venda
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -337,7 +334,6 @@ form.addEventListener('submit', async (e) => {
             <strong>Data:</strong> ${new Date(formData.dataVenda).toLocaleDateString('pt-BR')}
         `;
         
-        // Esconder formulário e mostrar mensagem de sucesso
         form.classList.add('hidden');
         successMessage.classList.remove('hidden');
         
@@ -358,15 +354,12 @@ function setupTabs() {
         button.addEventListener('click', () => {
             const tabId = button.getAttribute('data-tab');
             
-            // Remove a classe active de todos os botões e conteúdos
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
             
-            // Adiciona a classe active ao botão e conteúdo clicado
             button.classList.add('active');
             document.getElementById(`${tabId}-tab`).classList.add('active');
             
-            // Se for a aba de clientes, carrega a lista
             if (tabId === 'clientes') {
                 carregarListaClientes();
             }
@@ -413,7 +406,6 @@ function setupClienteSearch() {
     });
 }
 
-// Função para buscar clientes - CORRIGIDA
 async function buscarClientes(termo) {
     try {
         console.log('Fazendo requisição para:', `${WEB_APP_URL}?termo=${encodeURIComponent(termo)}`);
