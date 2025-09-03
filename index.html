@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Clientes - Venda de Máquinas</title>
+    <title>Controle de Clientes - Venda e Pós-Venda</title>
     <link rel="stylesheet" href="assets/style.css">
     <link rel="shortcut icon" href="assets/550535-de-icone-de-usuario-gratis-vetor.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -15,106 +15,208 @@
                 <i class="fas fa-users"></i>
             </div>
             <h1>Controle de Clientes</h1>
-            <p>Sistema de Venda de Máquinas</p>
+            <p>Sistema de Venda e Pós-Venda de Máquinas</p>
         </header>
         
+        <!-- Menu de Navegação -->
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="venda">
+                <i class="fas fa-cash-register"></i> Nova Venda
+            </button>
+            <button class="tab-button" data-tab="posvenda">
+                <i class="fas fa-headset"></i> Pós-Venda
+            </button>
+            <!-- <button class="tab-button" data-tab="clientes">
+                <i class="fas fa-list"></i> Lista de Clientes
+            </button> -->
+        </nav>
+        
         <main class="main-content">
-            <form id="clienteForm" class="cliente-form">
-                <h2>Registrar Venda</h2>
-                
-                <div class="form-group">
-                    <label for="supervisor">Supervisor Responsável*</label>
-                    <select id="supervisor" name="supervisor" required>
-                        <option value="" disabled selected>Selecione o supervisor</option>
-                        <option value="Aldenir Medeiros">Aldenir Medeiros</option>
-                        <option value="Rozélia Soares">Rozélia Soares</option>
-                        <option value="Thiago de Carvalho">Thiago de Carvalho</option>
-                        <option value="Kesse Jhones">Kesse Jhones</option>
-                        <option value="Anderson Brito">Anderson Brito</option>
-                        <option value="Guilherme Queiroz">Guilherme Queiroz</option>
-                        <option value="Maria Anita">Maria Anita</option>
-                        <option value="Pedro Lavor">Pedro Lavor</option>
-                        <option value="Dougllas Araújo">Dougllas Araújo</option>
-                        <option value="Tiago William">Tiago William</option>
-                        <option value="Allexandre Serrão">Allexandre Serrão</option>
-                        <option value="Michella Matos">Michella Matos</option>
-                        <option value="Vitória de Freitas">Vitória de Freitas</option>
-                        <option value="Sarah Cassiana">Sarah Cassiana</option>
-                        <option value="Outro">Outro (especifique)</option>
-                    </select>
-                    <input type="text" id="outroSupervisor" name="outroSupervisor" placeholder="Digite o nome do supervisor" class="hidden">
-                    <div class="error-message" id="supervisor-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="consultor">Consultor*</label>
-                    <input type="text" id="consultor" name="consultor" placeholder="Nome do consultor" required>
-                    <div class="error-message" id="consultor-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="cliente">Nome do Cliente*</label>
-                    <input type="text" id="cliente" name="cliente" placeholder="Nome do cliente" required>
-                    <div class="error-message" id="cliente-error"></div>
-                </div>
+            <!-- Aba de Venda -->
+            <div id="venda-tab" class="tab-content active">
+                <form id="clienteForm" class="cliente-form">
+                    <h2>Registrar Venda</h2>
+                    
+                    <div class="form-group">
+                        <label for="supervisor">Supervisor Responsável*</label>
+                        <select id="supervisor" name="supervisor" required>
+                            <option value="" disabled selected>Selecione o supervisor</option>
+                            <option value="Aldenir Medeiros">Aldenir Medeiros</option>
+                            <option value="Rozélia Soares">Rozélia Soares</option>
+                            <option value="Thiago de Carvalho">Thiago de Carvalho</option>
+                            <option value="Kesse Jhones">Kesse Jhones</option>
+                            <option value="Anderson Brito">Anderson Brito</option>
+                            <option value="Guilherme Queiroz">Guilherme Queiroz</option>
+                            <option value="Maria Anita">Maria Anita</option>
+                            <option value="Pedro Lavor">Pedro Lavor</option>
+                            <option value="Dougllas Araújo">Dougllas Araújo</option>
+                            <option value="Tiago William">Tiago William</option>
+                            <option value="Allexandre Serrão">Allexandre Serrão</option>
+                            <option value="Michella Matos">Michella Matos</option>
+                            <option value="Vitória de Freitas">Vitória de Freitas</option>
+                            <option value="Sarah Cassiana">Sarah Cassiana</option>
+                            <option value="Outro">Outro (especifique)</option>
+                        </select>
+                        <input type="text" id="outroSupervisor" name="outroSupervisor" placeholder="Digite o nome do supervisor" class="hidden">
+                        <div class="error-message" id="supervisor-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultor">Consultor*</label>
+                        <input type="text" id="consultor" name="consultor" placeholder="Nome do consultor" required>
+                        <div class="error-message" id="consultor-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cliente">Nome do Cliente*</label>
+                        <input type="text" id="cliente" name="cliente" placeholder="Nome do cliente" required>
+                        <div class="error-message" id="cliente-error"></div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="estabelecimento">Nome do Estabelecimento*</label>
-                    <input type="text" id="estabelecimento" name="estabelecimento" placeholder="Nome do estabelecimento" required>
-                    <div class="error-message" id="estabelecimento-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="custId">Cust ID do Cliente*</label>
-                    <input type="text" id="custId" name="custId" placeholder="ID do cliente" required>
-                    <div class="error-message" id="custId-error"></div>
-                </div>
+                    <div class="form-group">
+                        <label for="estabelecimento">Nome do Estabelecimento*</label>
+                        <input type="text" id="estabelecimento" name="estabelecimento" placeholder="Nome do estabelecimento" required>
+                        <div class="error-message" id="estabelecimento-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="custId">Cust ID do Cliente*</label>
+                        <input type="text" id="custId" name="custId" placeholder="ID do cliente" required>
+                        <div class="error-message" id="custId-error"></div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="telefone">Telefone do Cliente*</label>
-                    <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
-                    <div class="error-message" id="telefone-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">E-mail do Cliente*</label>
-                    <input type="email" id="email" name="email" placeholder="E-mail válido do cliente" required>
-                    <div class="error-message" id="email-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="dataVenda">Data da Venda*</label>
-                    <input type="date" id="dataVenda" name="dataVenda" required>
-                    <div class="error-message" id="dataVenda-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="serial">Serial da Máquina Vendida*</label>
-                    <input type="text" id="serial" name="serial" placeholder="Número de série da máquina" required>
-                    <div class="error-message" id="serial-error"></div>
-                </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone do Cliente*</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                        <div class="error-message" id="telefone-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail do Cliente*</label>
+                        <input type="email" id="email" name="email" placeholder="E-mail válido do cliente" required>
+                        <div class="error-message" id="email-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dataVenda">Data da Venda*</label>
+                        <input type="date" id="dataVenda" name="dataVenda" required>
+                        <div class="error-message" id="dataVenda-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="serial">Serial da Máquina Vendida*</label>
+                        <input type="text" id="serial" name="serial" placeholder="Número de série da máquina" required>
+                        <div class="error-message" id="serial-error"></div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="concorrencia">Concorrência*</label>
-                    <input type="text" id="concorrencia" name="concorrencia" placeholder="Concorrência" required>
-                    <div class="error-message" id="concorrencia-error"></div>
-                </div>
+                    <div class="form-group">
+                        <label for="concorrencia">Concorrência*</label>
+                        <input type="text" id="concorrencia" name="concorrencia" placeholder="Concorrência" required>
+                        <div class="error-message" id="concorrencia-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="observacoes">Observações</label>
+                        <textarea id="observacoes" name="observacoes" placeholder="Informações adicionais sobre a venda"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-check-circle"></i> Registrar Venda
+                    </button>
+                </form>
                 
-                <div class="form-group">
-                    <label for="observacoes">Observações</label>
-                    <textarea id="observacoes" name="observacoes" placeholder="Informações adicionais sobre a venda"></textarea>
+                <div id="successMessage" class="success-message hidden">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Venda registrada com sucesso!</h3>
+                    <p id="success-details"></p>
+                    <button id="newVendaBtn" class="new-venda-btn">Nova Venda</button>
                 </div>
-                
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-check-circle"></i> Registrar Venda
-                </button>
-            </form>
+            </div>
             
-            <div id="successMessage" class="success-message hidden">
-                <i class="fas fa-check-circle"></i>
-                <h3>Venda registrada com sucesso!</h3>
-                <p id="success-details"></p>
-                <button id="newVendaBtn" class="new-venda-btn">Nova Venda</button>
+            <!-- Aba de Pós-Venda -->
+            <div id="posvenda-tab" class="tab-content">
+                <div class="search-section">
+                    <h2>Registrar Atendimento de Pós-Venda</h2>
+                    <div class="form-group">
+                        <label for="clienteSearch">Buscar Cliente (por nome, telefone ou Cust ID):</label>
+                        <input type="text" id="clienteSearch" placeholder="Digite para buscar...">
+                        <div id="resultadosBusca" class="search-results"></div>
+                    </div>
+                </div>
+                
+                <form id="posVendaForm" class="cliente-form hidden">
+                    <h3 id="clienteSelecionadoNome">Cliente: <span></span></h3>
+                    
+                    <div class="form-group">
+                        <label for="tipoAtendimento">Tipo de Atendimento*</label>
+                        <select id="tipoAtendimento" name="tipoAtendimento" required>
+                            <option value="" disabled selected>Selecione o tipo</option>
+                            <option value="Suporte Técnico">Suporte Técnico</option>
+                            <option value="Treinamento">Treinamento</option>
+                            <option value="Manutenção">Manutenção</option>
+                            <option value="Reclamação">Reclamação</option>
+                            <option value="Visita de Acompanhamento">Visita de Acompanhamento</option>
+                            <option value="Venda de Acessórios">Venda de Acessórios</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dataAtendimento">Data do Atendimento*</label>
+                        <input type="date" id="dataAtendimento" name="dataAtendimento" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="responsavelAtendimento">Responsável pelo Atendimento*</label>
+                        <input type="text" id="responsavelAtendimento" name="responsavelAtendimento" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="descricaoAtendimento">Descrição do Atendimento*</label>
+                        <textarea id="descricaoAtendimento" name="descricaoAtendimento" placeholder="Descreva detalhadamente o atendimento realizado..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="statusAtendimento">Status*</label>
+                        <select id="statusAtendimento" name="statusAtendimento" required>
+                            <option value="Concluído">Concluído</option>
+                            <option value="Pendente">Pendente</option>
+                            <option value="Agendado">Agendado</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="proximoAtendimento">Próximo Atendimento (se necessário)</label>
+                        <input type="date" id="proximoAtendimento" name="proximoAtendimento">
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-check-circle"></i> Registrar Atendimento
+                    </button>
+                </form>
+                
+                <div id="successPosVenda" class="success-message hidden">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Atendimento registrado com sucesso!</h3>
+                    <p id="success-pos-details"></p>
+                    <button id="newAtendimentoBtn" class="new-venda-btn">Novo Atendimento</button>
+                </div>
+            </div>
+            
+            <!-- Aba de Lista de Clientes -->
+            <div id="clientes-tab" class="tab-content">
+                <h2>Clientes Cadastrados</h2>
+                <div class="filters">
+                    <input type="text" id="filterClientes" placeholder="Filtrar clientes...">
+                    <select id="filterSupervisor">
+                        <option value="">Todos os supervisores</option>
+                        <!-- Opções serão preenchidas via JavaScript -->
+                    </select>
+                </div>
+                <div id="listaClientes" class="clientes-list">
+                    <!-- Lista será preenchida via JavaScript -->
+                </div>
             </div>
         </main>
         
