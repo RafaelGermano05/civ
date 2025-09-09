@@ -1,7 +1,10 @@
 
-const BACKEND_URL = 'http://localhost:3000'; 
+// const BACKEND_URL = 'http://localhost:3000'; 
+const BACKEND_URL = 'https://controle-vendas-backend.onrender.com';
 const LOGIN_URL = `${BACKEND_URL}/auth/login`;
 const API_URL = `${BACKEND_URL}/api`;
+
+
 
 // Variável para armazenar o token
 let authToken = localStorage.getItem('authToken');
