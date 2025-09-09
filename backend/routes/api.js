@@ -12,3 +12,4 @@ router.post('/venda', registrarVenda);
 router.post('/posvenda', registrarPosVenda);
 
 module.exports = router;
+

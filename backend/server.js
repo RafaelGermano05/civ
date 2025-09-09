@@ -22,7 +22,7 @@ app.use(express.json({ limit: '10mb' }));
 
 // Configuração CORS para produção/desenvolvimento
 const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? ['https://controle-vendas-frontend.onrender.com'] 
+  ? ['https://controle-vendas-frontend-4krc.onrender.com'] 
   : ['http://localhost:5500', 'http://127.0.0.1:5500'];
 
 app.use(cors({
@@ -98,27 +98,25 @@ const authenticateToken = (req, res, next) => {
   }
 
   try {
-    // Verificação simplificada do token
+
     const tokenParts = token.split('-');
     if (tokenParts.length !== 3 || tokenParts[0] !== 'token') {
       return res.status(403).json({ error: 'Token inválido' });
     }
     
-    // Aqui você poderia validar melhor o token se quisesse
+
     next();
   } catch (error) {
     return res.status(403).json({ error: 'Token inválido' });
   }
 };
 
-// Middleware para verificar se é supervisor
+
 const requireSupervisor = (req, res, next) => {
-  // Em uma implementação real, você verificaria no token
-  // Mas para simplificar, vamos assumir que todos são supervisores
   next();
 };
 
-// ================== ROTAS DA API ================== //
+
 const axios = require('axios');
 const WEB_APP_URL = process.env.WEB_APP_URL;
 
