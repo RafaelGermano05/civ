@@ -9,6 +9,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="logo">
+                <i class="fas fa-users"></i>
+            </div>
+            <h2>Login do Supervisor</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Supervisor</label>
+                    <select id="username" required>
+                        <option value="">Selecione o supervisor</option>
+                        <option value="Aldenir Medeiros">Aldenir Medeiros</option>
+                        <option value="Rozélia Soares">Rozélia Soares</option>
+                        <option value="Aline Ysline">Aline Ysline</option>
+                        <option value="Thiago de Carvalho">Thiago de Carvalho</option>
+                        <option value="Kesse Jhones">Kesse Jhones</option>
+                        <option value="Anderson Brito">Anderson Brito</option>
+                        <option value="Guilherme Queiroz">Guilherme Queiroz</option>
+                        <option value="Maria Anita">Maria Anita</option>
+                        <option value="Pedro Lavor">Pedro Lavor</option>
+                        <option value="Ramom Amaral">Ramom Amaral</option>
+                        <option value="Dougllas Araújo">Dougllas Araújo</option>
+                        <option value="Tiago William">Tiago William</option>
+                        <option value="Thiago Eurípedes">Thiago Eurípedes</option>
+                        <option value="Allexandre Serrão">Allexandre Serrão</option>
+                        <option value="Michella Matos">Michella Matos</option>
+                        <option value="Vitória de Freitas">Vitória de Freitas</option>
+                        <option value="Maykon Thompson">Maykon Thompson</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required placeholder="Digite sua senha">
+                </div>
+                <button type="submit" class="submit-btn">Entrar</button>
+            </form>
+        </div>
+    </div>
+
     <div class="container">
         <header class="header">
             <div class="logo">
@@ -16,6 +56,9 @@
             </div>
             <h1>Controle de Clientes</h1>
             <p>Sistema de Venda e Pós-Venda de Máquinas</p>
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
         </header>
         
         <!-- Menu de Navegação -->
@@ -26,9 +69,6 @@
             <button class="tab-button" data-tab="posvenda">
                 <i class="fas fa-headset"></i> Pós-Venda
             </button>
-            <!-- <button class="tab-button" data-tab="clientes">
-                <i class="fas fa-list"></i> Lista de Clientes
-            </button> -->
         </nav>
         
         <main class="main-content">
@@ -43,18 +83,21 @@
                             <option value="" disabled selected>Selecione o supervisor</option>
                             <option value="Aldenir Medeiros">Aldenir Medeiros</option>
                             <option value="Rozélia Soares">Rozélia Soares</option>
+                            <option value="Aline Ysline">Aline Ysline</option>
                             <option value="Thiago de Carvalho">Thiago de Carvalho</option>
                             <option value="Kesse Jhones">Kesse Jhones</option>
                             <option value="Anderson Brito">Anderson Brito</option>
                             <option value="Guilherme Queiroz">Guilherme Queiroz</option>
                             <option value="Maria Anita">Maria Anita</option>
                             <option value="Pedro Lavor">Pedro Lavor</option>
+                            <option value="Ramom Amaral">Ramom Amaral</option>
                             <option value="Dougllas Araújo">Dougllas Araújo</option>
                             <option value="Tiago William">Tiago William</option>
+                            <option value="Thiago Eurípedes">Thiago Eurípedes</option>
                             <option value="Allexandre Serrão">Allexandre Serrão</option>
                             <option value="Michella Matos">Michella Matos</option>
                             <option value="Vitória de Freitas">Vitória de Freitas</option>
-                            <option value="Sarah Cassiana">Sarah Cassiana</option>
+                            <option value="Maykon Thompson">Maykon Thompson</option>
                             <option value="Outro">Outro (especifique)</option>
                         </select>
                         <input type="text" id="outroSupervisor" name="outroSupervisor" placeholder="Digite o nome do supervisor" class="hidden">
@@ -200,21 +243,6 @@
                     <h3>Atendimento registrado com sucesso!</h3>
                     <p id="success-pos-details"></p>
                     <button id="newAtendimentoBtn" class="new-venda-btn">Novo Atendimento</button>
-                </div>
-            </div>
-            
-            <!-- Aba de Lista de Clientes -->
-            <div id="clientes-tab" class="tab-content">
-                <h2>Clientes Cadastrados</h2>
-                <div class="filters">
-                    <input type="text" id="filterClientes" placeholder="Filtrar clientes...">
-                    <select id="filterSupervisor">
-                        <option value="">Todos os supervisores</option>
-                        <!-- Opções serão preenchidas via JavaScript -->
-                    </select>
-                </div>
-                <div id="listaClientes" class="clientes-list">
-                    <!-- Lista será preenchida via JavaScript -->
                 </div>
             </div>
         </main>
