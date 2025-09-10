@@ -1,13 +1,53 @@
-
 // const BACKEND_URL = 'http://localhost:3000'; 
 const BACKEND_URL = 'https://controle-vendas-backend-23z7.onrender.com';
 const LOGIN_URL = `${BACKEND_URL}/auth/login`;
 const API_URL = `${BACKEND_URL}/api`;
 
-
-
 // Variável para armazenar o token
 let authToken = localStorage.getItem('authToken');
+let user = JSON.parse(localStorage.getItem('user') || '{}');
+
+// Verificar se está autenticado e mostrar conteúdo apropriado
+function checkAuthStatus() {
+    if (authToken && user.username) {
+        // Usuário logado - esconder login, mostrar conteúdo
+        document.getElementById('loginModal').style.display = 'none';
+        document.querySelector('.container').style.display = 'block';
+        
+        console.log('Usuário já logado:', user.username);
+    } else {
+        // Usuário não logado - mostrar login, esconder conteúdo
+        document.getElementById('loginModal').style.display = 'flex';
+        document.querySelector('.container').style.display = 'none';
+        
+        // Limpar dados inválidos
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        authToken = null;
+        user = {};
+    }
+}
+
+// Verificar status de autenticação ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuthStatus();
+    
+    // Só inicializar o resto se estiver logado
+    if (authToken && user.username) {
+        setupTelefoneMask();
+        setupSupervisorSelect();
+        setupFormValidation();
+        setupDateField();
+        setupNewVendaButton();
+        setupTabs();
+        setupClienteSearch();
+        setupPosVendaForm();
+        setupNewAtendimentoButton();
+        
+        document.getElementById('dataAtendimento').value = new Date().toISOString().split('T')[0];
+    }
+});
+
 
 // Mostrar modal de login se não estiver autenticado
 if (!authToken) {
@@ -15,9 +55,16 @@ if (!authToken) {
   document.querySelector('.container').style.display = 'none';
 }
 
-// Função para fazer login
 async function fazerLogin(username, password) {
+  // 👇 OBTER O BOTÃO DE LOGIN E SALVAR TEXTO ORIGINAL
+  const submitBtn = document.querySelector('#loginForm button[type="submit"]');
+  const originalBtnText = submitBtn.innerHTML;
+  
   try {
+    // 👇 MOSTRAR LOADING NO BOTÃO
+    submitBtn.innerHTML = '<div class="loader"></div><div class="loading-text">Entrando...</div>';
+    submitBtn.disabled = true;
+
     const response = await fetch(LOGIN_URL, {
       method: 'POST',
       headers: {
@@ -31,22 +78,42 @@ async function fazerLogin(username, password) {
     if (response.ok) {
       // Login bem-sucedido
       authToken = data.token;
-      localStorage.setItem('authToken', authToken);
-      localStorage.setItem('user', JSON.stringify(data.user)); 
+      user = data.user;
       
+      localStorage.setItem('authToken', authToken);
+      localStorage.setItem('user', JSON.stringify(user)); 
+      
+      // ESCONDER modal de login e MOSTRAR conteúdo
       document.getElementById('loginModal').style.display = 'none';
       document.querySelector('.container').style.display = 'block';
       
-      console.log('Usuário logado:', data.user); 
+      // Inicializar todas as funcionalidades APÓS login
+      setupTelefoneMask();
+      setupSupervisorSelect();
+      setupFormValidation();
+      setupDateField();
+      setupNewVendaButton();
+      setupTabs();
+      setupClienteSearch();
+      setupPosVendaForm();
+      setupNewAtendimentoButton();
+      
+      document.getElementById('dataAtendimento').value = new Date().toISOString().split('T')[0];
+      
+      console.log('Usuário logado:', user); 
       return true;
     } else {
-      alert('Erro no login:' + data.error);
+      alert('Erro no login: ' + data.error);
       return false;
     }
   } catch (error) {
     console.error('Erro no login:', error);
     alert('Erro ao conectar com o servidor');
     return false;
+  } finally {
+    // 👇 SEMPRE restaurar o botão, mesmo se der erro ou sucesso
+    submitBtn.innerHTML = originalBtnText;
+    submitBtn.disabled = false;
   }
 }
 
@@ -140,13 +207,19 @@ function setupTelefoneMask() {
     });
 }
 
-// Função para fazer logout
+
 function fazerLogout() {
   localStorage.removeItem('authToken');
+  localStorage.removeItem('user');
   authToken = null;
+  user = {};
+
   document.getElementById('loginModal').style.display = 'flex';
   document.querySelector('.container').style.display = 'none';
   document.getElementById('loginForm').reset();
+  
+  
+  console.log('Logout realizado');
 }
 
 // Event listener para o botão de logout
